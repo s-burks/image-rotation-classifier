@@ -1,0 +1,9 @@
+# Install torch/torchvision separately with CUDA:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
+pillow
+numpy
+tqdm
+onnx
+onnxscript
+onnxruntime
+matplotlib
