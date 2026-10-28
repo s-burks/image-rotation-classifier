@@ -6,7 +6,18 @@ It's a fine-tuned ImageNet-pretrained MobileNetV3. Training is self-supervised: 
 
 **Results** (MobileNetV3-Large, ~46k COCO photos, 15 epochs): **95.3%** test accuracy. The exported ONNX model is ~17 MB and runs in milliseconds per photo on CPU.
 
-## Setup
+## Quick start with the pretrained model
+
+No training or GPU needed. Download `rotation-mobilenetv3-large-v1.onnx` from the [latest release](../../releases/latest), then:
+
+```powershell
+pip install onnxruntime pillow numpy
+python predict_onnx.py C:\path\to\photos --model rotation-mobilenetv3-large-v1.onnx --out fixed
+```
+
+The release also includes the PyTorch checkpoint (`rotation-mobilenetv3-large-v1.pt`) for use with `predict.py`, `evaluate.py` or further fine-tuning.
+
+## Setup for training
 
 Requires Python 3.12 and, for training, an NVIDIA GPU.
 
@@ -70,3 +81,9 @@ python predict_onnx.py C:\path\to\photos --model runs\large_46k\rotation.onnx --
 The model takes `(N, 3, 224, 224)` float32 input normalized with ImageNet mean/std, and outputs 4 logits for rotations `[0, 90, 180, 270]` counter-clockwise. To fix a photo predicted as `k`, rotate it `k × 90°` clockwise.
 
 Known weak spots are scenes without a clear "up", such as close-ups, textures, overhead shots and underground stations, plus heavy film halation.
+
+## License
+
+The code is released under the [MIT License](LICENSE).
+
+The released weights were fine-tuned from torchvision's ImageNet-pretrained MobileNetV3 on images from [COCO](https://cocodataset.org), which are sourced from Flickr under various licenses. Use of the weights is subject to the [COCO terms of use](https://cocodataset.org/#termsofuse).
