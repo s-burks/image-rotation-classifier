@@ -27,6 +27,7 @@ def main():
         model, (torch.zeros(1, 3, CROP, CROP),), out,
         input_names=["input"], output_names=["logits"],
         dynamic_axes={"input": {0: "batch"}, "logits": {0: "batch"}},
+        external_data=False,  # embed weights in the .onnx instead of a separate .onnx.data file
     )
 
     # Same random batch through both runtimes; batch of 4 also checks the dynamic batch axis
