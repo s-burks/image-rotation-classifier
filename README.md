@@ -63,7 +63,7 @@ python predict_onnx.py C:\path\to\photos --model runs\large_46k\rotation.onnx --
 
 - `--min-conf 0.7` leaves photos below that confidence unrotated, which is safer than a wrong rotation.
 - By default each photo is predicted at 4 extra rotations and the results averaged (test-time augmentation). `--no-tta` makes a single prediction.
-- Corrected copies are re-encoded as JPEG at quality 95.
+- JPEGs are never re-encoded: corrected copies have the same image data with an updated EXIF Orientation tag, so software that ignores EXIF shows them unrotated. Other formats are rotated and re-saved.
 
 ## How it works
 
